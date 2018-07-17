@@ -1,0 +1,26 @@
+/* PHASE 2: Notifications */
+.badge {
+  position: relative;
+}
+
+.notifications-dropdown{
+  position: absolute;
+  display: none;
+}
+li:hover .notifications-dropdown{
+  display: flex;
+  background-color: white;
+  border: 1px solid #DFE0DE;
+  color: black;
+  flex-direction: column;
+  z-index: 1;
+}
+
+.notifications-dropdown li {
+  padding: 10px;
+  border: 1px solid #DFE0DE;
+}
+
+.notifications-dropdown li:hover {
+  background: #DFE0DE;
+}
