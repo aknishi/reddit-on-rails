@@ -1,0 +1,31 @@
+<h2>Comment</h2>
+
+Author: <%= @comment.author.username %> <br>
+Content: <%= @comment.content %> <br>
+
+<ul>
+  <% @comment.child_comments.each do |comment| %>
+    <li>
+      Author: <%= comment.author.username %><br>
+      Content: <br>
+      <%= comment.content %>
+      <form class="" action="<%= comment_url(comment) %>" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" name="" value="Delete">
+      </form>
+    </li>
+  <% end %>
+</ul>
+
+
+<h3>Reply</h3>
+<form class="" action="<%= comment_comments_url(@comment) %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  Content
+  <br>
+  <textarea name="comment[content]" rows="8" cols="80"></textarea>
+  </label>
+  <br>
+  <input type="submit" name="" value="Reply">
+</form>

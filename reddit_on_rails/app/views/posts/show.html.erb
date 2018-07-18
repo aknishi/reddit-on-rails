@@ -1,0 +1,50 @@
+Title: <%= @post.title %>
+<br>
+URL: <%= @post.url %>
+<br>
+Author: <%= @post.author.username %>
+<br>
+Content: <%= @post.content %>
+<br>
+
+<a href="<%=edit_post_url(@post)%>">Edit Post</a><br>
+
+<h2>Comments</h2>
+
+<ol>
+<% @all_comments.each do |comment| %>
+  <% next unless comment.parent_comment_id == nil%>
+  <%= comment.parent_comment_id %>
+  <li>
+    <strong>
+    <%= comment.author.username %> :
+    <%= comment.content %><br>
+
+    <a href="<%=comment_url(comment)%>">See Comment</a>
+    <form class="" action="<%= comment_url(comment) %>" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" name="" value="Delete">
+    </form>
+    </strong>
+    
+    <ul>
+      <% comment.child_comments.each do |child_comment| %>
+        <li><%= render "comment", comment: child_comment %></li> 
+      <% end %>
+    </ul>
+  </li>
+<% end %>
+</ol>
+
+<h3>Add Comment</h3>
+<form class="" action="<%= post_comments_url(@post) %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  Content
+  <br>
+  <textarea name="comment[content]" rows="8" cols="80"></textarea>
+  </label>
+  <br>
+  <input type="submit" name="" value="Add Comment">
+</form>
+

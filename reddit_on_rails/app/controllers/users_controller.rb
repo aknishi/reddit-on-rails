@@ -8,11 +8,15 @@ class UsersController < ApplicationController
     
     if @user.save
       login!(@user)
-      # redirect_to
+      redirect_to subs_url
     else
       flash[:errors] = @user.errors.full_messages
       render :new
     end
+  end
+  
+  def show
+    @user = User.find(params[:id])
   end
   
   private

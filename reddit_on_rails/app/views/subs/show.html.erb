@@ -1,0 +1,57 @@
+Title: <%= @sub.title %>
+<br>
+Moderator: <%= @sub.moderator.username %>
+<br>
+Description: <%= @sub.description %>
+<br>
+
+<a href="<%=edit_sub_url(@sub)%>">Edit Sub</a><br>
+
+<h2>Posts</h2>
+<% @sub.posts.each do |post| %>
+  Title: <%= post.title %><br>
+  URL: <%= post.url %><br>
+  Content: <br>
+  <%= post.content %><br>
+  <a href="<%= post_url(post) %>">See Post</a><br>
+  <a href="<%= edit_post_url(post) %>">Edit Post</a>
+  
+  <form class="" action="<%= post_url(post) %>" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" name="" value="Remove Post">
+  </form>
+  
+<% end %>
+
+
+
+<h3>Create Posts</h3>
+<form class="" action="<%= sub_posts_url(@sub) %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  
+  <label>
+  Title
+  <input type="text" name="post[title]" value="">
+  </label>
+  <br>
+  <label>
+  URL
+  <input type="text" name="post[url]" value="">
+  </label>
+  <br>
+  <label>
+  Content
+  <br>
+  <textarea name="post[content]" rows="8" cols="80"></textarea>
+  </label>
+  <br>
+  
+  <% Sub.all.each do |sub| %>
+    <label for="sub_ids">Subs
+      <input type="checkbox" name="post[sub_ids][]" value="<%=sub.id%>">
+      <%= sub.title %>
+    </label>
+  <% end %>
+  <input type="submit" name="" value="Create Post">
+</form>
